@@ -1,0 +1,22 @@
+
+
+lint_conf
+
+lint_conf is a straitghforward simple router or switch configuration checker.
+    yet it mainly tries to find
+    - unused but declared objects such as
+	vrf
+	interface
+	peer-group
+	route-map
+	ipv4 or ipv6 prefix-list
+	access-list
+	community-list
+    - used but undeclared objects such as
+	port-channel
+	peer-group
+	route-map
+	ipv4 or ipv6 prefix-list
+	access-list
+	community-list
+
