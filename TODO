@@ -1,0 +1,10 @@
+
+ergonomy:
+            stderr output a-la-vim compliant (returning the filenames+lines of error with usables error messages)
+	    batch-mode for scanning a whole set of conf-files
+	    raise warning and or errors (?) with tunable level
+	    total number of error (warnings)
+
+inner-dev:
+            simplify the syntax parsing declaration into an external definition-file
+
