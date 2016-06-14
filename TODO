@@ -8,3 +8,5 @@ ergonomy:
 inner-dev:
             simplify the syntax parsing declaration into some external definition-files
 
+more:
+	    mirror repository
