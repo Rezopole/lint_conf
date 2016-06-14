@@ -6,5 +6,5 @@ ergonomy:
 	    total number of error (warnings)
 
 inner-dev:
-            simplify the syntax parsing declaration into an external definition-file
+            simplify the syntax parsing declaration into some external definition-files
 
