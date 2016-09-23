@@ -30,6 +30,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 #include <string>
 #include <map>
@@ -200,8 +201,8 @@ ostream &operator<< (ostream &out, const IDPoolEntry &e) {
     bool undeclared = e.ldecl.empty() && (!e.luse.empty());
     bool anormal_mdecl = (e.ldecl.size() > 1) && (!e.allowmdecl);
     bool allempty = e.ldecl.empty() && e.luse.empty();
-    bool unused = e.luse.empty();
-    bool errorinvolved = undeclared || anormal_mdecl || allempty || unused;
+    // bool unused = e.luse.empty();
+    bool errorinvolved = undeclared || anormal_mdecl || allempty ; // || unused;
 
     if ((outputmode == ERRORS_ONLY) && (!errorinvolved))
 	return out;
@@ -276,6 +277,10 @@ ostream &operator<< (ostream &out, const IDPool &idp) {
 
 class IDPoolMap : public map<string, IDPool*> {
   public:
+    string fname;
+
+    IDPoolMap (const string &fname) : fname(fname) {}
+
     bool createpool (const string &s) {
 	iterator mi = find(s);
 	if (mi == end()) {
@@ -311,11 +316,21 @@ class IDPoolMap : public map<string, IDPool*> {
 };
 ostream &operator<< (ostream &out, const IDPoolMap &idpm) {
 //cerr << "here" <<  endl;
-    if (idpm.empty())
-	return out << "no identifiers" << endl;
+    if (idpm.empty()) {
+	if (idpm.fname.size() != 0) {
+	    return out << idpm.fname << ": no identifiers" << endl;
+	} else {
+	    return out << "no identifiers" << endl;
+	}
+    }
     IDPoolMap::const_iterator mi;
-    for (mi=idpm.begin() ; mi!=idpm.end() ; mi++)
-	out << *(mi->second);
+    for (mi=idpm.begin() ; mi!=idpm.end() ; mi++) {
+	if (idpm.fname.size() != 0) {
+	    out << idpm.fname << ": " << *(mi->second);
+	} else {
+	    out << *(mi->second);
+	}
+    }
     return out;
 }
 
@@ -332,9 +347,9 @@ typedef enum {
 
 // ----------------- filter_in ----------------------------------------------------------
 
-int filter_in (istream & cin) {
+int filter_in (istream & cin, const string &fname) {
     Tstatemode state = SEEK_BEGINCONF;
-    IDPoolMap idpm;
+    IDPoolMap idpm (fname);
 
     idpm.allow_multiple_decl("acl");
     idpm.allow_multiple_decl("port-channel");
@@ -379,7 +394,7 @@ int filter_in (istream & cin) {
 	switch (state) {
 	    case SEEK_BEGINCONF:
 		if ("Building configuration..." == rs) {
-		    cerr << "entering conf" << endl;
+		    // cerr << "entering conf" << endl;
 		    state = AT_ROOT;
 		    address_family = "";
 		}
@@ -514,8 +529,9 @@ if (cs.match ("vrf")) {
     }
 
 
+if (fname.size() != 0) cerr << fname << ": ";
 cerr << rawconf.size() << " lines read." << endl;
-cerr << "curline = " << curline << endl;
+//cerr << "curline = " << curline << endl;
 cerr << endl << " identifiers : " << endl;
 cerr << idpm << endl;
 
@@ -528,7 +544,18 @@ cerr << idpm << endl;
 int main (int nb, char ** cmde) {
 
     if (nb == 1)
-	return filter_in (cin);
+	return filter_in (cin, "stdin");
+
+    int i;
+    for (i=1 ; i<nb ; i++) {
+	ifstream fin (cmde[i]);
+	if (!fin) {
+	    int e = errno;
+	    cerr << cmde[0] << " error: could not read " << cmde[i] << " " << strerror (e) << endl;
+	    continue;
+	}
+	filter_in (fin, cmde[i]);
+    }
 
     return 0;
 }

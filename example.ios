@@ -1,0 +1,421 @@
+Connected to 192.168.2.101.
+Escape character is '^]'.
+
+
+User Access Verification
+
+Username: user
+Password: 
+
+c4924-spare-1>ena
+Password: 
+c4924-spare-1#sho run
+Building configuration...
+
+Current configuration : 5924 bytes
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname c4924-spare-1
+!
+boot-start-marker
+boot system bootflash:cat4500-entservicesk9-mz.150-2.SG7.bin
+boot-end-marker
+!
+enable secret 5 $1$zthisismypassowrd
+!
+username lab privilege 15 secret 5 $1$lsthisismypassowrd
+!
+!
+aaa new-model
+!
+!
+!
+!
+!
+aaa session-id common
+qos
+ip subnet-zero
+no ip routing
+ip domain-name supernetwokinc.net
+ip name-server 192.168.2.1
+ip name-server 192.168.2.2
+ip vrf mgmtVrf
+!
+!
+!
+!
+!
+!
+system mtu 1552
+power redundancy-mode redundant
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+no spanning-tree vlan 20,50-100
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+class-map match-any v56to60
+  match any 
+class-map match-any v54to55
+  match any 
+class-map match-any v50to53
+  match any 
+class-map match-any byacl
+  match access-group 101
+!
+!
+interface Port-channel1
+ description CORE: LAG this is a LAG
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 2-19,21-4094
+ switchport mode trunk
+ mtu 9198
+ flowcontrol receive on
+ spanning-tree bpdufilter enable
+!
+interface FastEthernet1
+ ip vrf forwarding mgmtVrf
+ no ip address
+ no ip route-cache
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet1/1
+ description Mngmt
+ switchport access vlan 20
+ switchport mode access
+ logging event link-status
+!
+interface GigabitEthernet1/2
+ shutdown
+!
+interface GigabitEthernet1/3
+ shutdown
+!
+interface GigabitEthernet1/4
+ shutdown
+!
+interface GigabitEthernet1/5
+ shutdown
+!
+interface GigabitEthernet1/6
+ shutdown
+!
+interface GigabitEthernet1/7
+ shutdown
+!
+interface GigabitEthernet1/8
+ shutdown
+!
+interface GigabitEthernet1/9
+ shutdown
+!
+interface GigabitEthernet1/10
+ shutdown
+!
+interface GigabitEthernet1/11
+ shutdown
+!
+interface GigabitEthernet1/12
+ shutdown
+ no cdp enable
+!
+interface GigabitEthernet1/13
+ shutdown
+!
+interface GigabitEthernet1/14
+ shutdown
+!
+interface GigabitEthernet1/15
+ shutdown
+!
+interface GigabitEthernet1/16
+ shutdown
+!
+interface GigabitEthernet1/17
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 60,70
+ switchport mode trunk
+!
+interface GigabitEthernet1/18
+ shutdown
+!
+interface GigabitEthernet1/19
+ shutdown
+!
+interface GigabitEthernet1/20
+ shutdown
+!
+interface GigabitEthernet1/21
+ shutdown
+!
+interface GigabitEthernet1/22
+ shutdown
+!
+interface GigabitEthernet1/23
+ shutdown
+!
+interface GigabitEthernet1/24
+ no switchport
+ no ip address
+ no ip route-cache
+ shutdown
+!
+interface GigabitEthernet1/25
+ description test mux 1310
+ switchport access vlan 60
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet1/26
+ description lien bradaboum
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ mtu 9198
+ shutdown
+!
+interface GigabitEthernet1/27
+ description test mux 1270
+ switchport access vlan 70
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet1/28
+ description firewall-de-service
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ shutdown
+!
+interface TenGigabitEthernet1/29
+ description CORE: LAG bradapoum
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 2-19,21-4094
+ switchport mode trunk
+ mtu 9198
+!
+interface TenGigabitEthernet1/30
+ description Serveur-gauche
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+!
+interface Vlan20
+ ip address 192.168.2.101 255.255.255.0
+ no ip route-cache
+!
+interface Vlan50
+ description Test Traffic Policing
+ ip address 10.0.0.20 255.255.255.0
+ no ip route-cache
+!
+interface Vlan51
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan52
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan53
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan54
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan55
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan56
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan57
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan58
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan59
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan60
+ description Test Traffic Policing
+ ip address 192.168.6.80 255.255.255.0
+ no ip route-cache
+!
+interface Vlan61
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan62
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!         
+interface Vlan63
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan64
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan65
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan66
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan67
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan68
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan69
+ description Test Traffic Policing
+ no ip address
+ no ip route-cache
+!
+interface Vlan70
+ description Test Traffic Policing
+ ip address 192.168.7.90 255.255.255.0
+ no ip route-cache
+!
+router bgp 65501
+ bgp router-id 192.168.2.101
+ no bgp enforce-first-as
+ bgp log-neighbor-changes
+ bgp rpki server tcp 192.168.2.150 port 8282 refresh 600
+ neighbor somedistantIX-rs-ipv4 peer-group
+ neighbor somedistantIX-rs-ipv4 remote-as 24115
+ neighbor somedistantIX-rs-ipv6 peer-group
+ neighbor somedistantIX-rs-ipv6 remote-as 24115
+ !
+ address-family ipv4
+  bgp bestpath prefix-validate allow-invalid
+  neighbor somedistantIX-rs-ipv4 send-community
+  neighbor somedistantIX-rs-ipv4 next-hop-self
+  neighbor somedistantIX-rs-ipv4 soft-reconfiguration inbound
+  neighbor somedistantIX-rs-ipv4 prefix-list No-AS43100-in in
+  neighbor somedistantIX-rs-ipv4 route-map somedistantIX-in in
+  neighbor somedistantIX-rs-ipv4 route-map somedistantIX-rs-out out
+  neighbor somedistantIX-rs-ipv4 maximum-prefix 15000
+ exit-address-family
+ !
+ address-family ipv6
+  bgp bestpath prefix-validate allow-invalid
+  neighbor somedistantIX-rs-ipv6 send-community
+  neighbor somedistantIX-rs-ipv6 next-hop-self
+  neighbor somedistantIX-rs-ipv6 soft-reconfiguration inbound
+  neighbor somedistantIX-rs-ipv6 prefix-list No-AS43100-in in
+  neighbor somedistantIX-rs-ipv6 route-map somedistantIX-in in
+  neighbor somedistantIX-rs-ipv6 route-map somedistantIX-rs-out out
+  neighbor somedistantIX-rs-ipv6 maximum-prefix 1000
+ exit-address-family
+!
+ip forward-protocol nd
+!
+ip bgp-community new-format
+ip community-list standard Learned-from-somedistantIX permit 43100:1080
+ip community-list standard For-somedistantIX-Peerings permit 43100:8080
+ip community-list standard Not-For-somedistantIX-Peerings permit 43100:9080
+ip community-list standard For-somedistantIX-Prepend permit 43100:7080
+!
+route-map somedistantIX-rs-out deny 5
+ match community Not-For-Remote-Peerings
+!
+route-map somedistantIX-rs-out deny 10
+ match community Not-For-Out
+!
+route-map somedistantIX-rs-out deny 15
+ match community Not-For-somedistantIX-Peerings
+!
+route-map somedistantIX-rs-out permit 20
+ match community For-somedistantIX-Prepend
+ continue
+ set as-path prepend 43100 43100 43100
+!
+ip prefix-list AS41405-in seq 5 permit 195.200.217.0/24
+ip prefix-list AS41405-in seq 10 permit 185.7.240.0/22 le 24
+ip prefix-list AS41405-in seq 15 deny 0.0.0.0/0
+!
+ipv6 prefix-list AS9036-in seq 5 deny ::/0
+
+
+ 
+!
+ip default-gateway 192.168.2.1
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+snmp-server community YOLO RO 97
+snmp-server community YOLE RO 96
+snmp-server community YOLIE RO 95
+snmp-server manager
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ exec-timeout 60 0
+ length 0
+ transport input telnet ssh
+line vty 5
+ transport input telnet ssh
+!
+process cpu statistics limit entry-percentage 1 size 5
+mac address-table static 0007.effe.effe vlan 20 interface GigabitEthernet1/23
+mac address-table static 0007.effe.effd vlan 20 interface GigabitEthernet1/23
+end
+
+
