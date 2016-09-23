@@ -6,7 +6,7 @@
 
 **lint_conf** is a straitghforward simple router or switch configuration-checker.
 
-Its first purpose is to dig out undeclared object that are still in use in a given configuration
+Its first purpose is to dig out undeclared objects that are still in use in a given configuration
 
 yet, it mainly reports about :
 
