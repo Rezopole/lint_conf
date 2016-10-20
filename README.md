@@ -72,6 +72,8 @@ example.ios: router bgp [1] :
 - [ ] a-la-make/vim error output, for jumping straight to error-lines
 - [ ] regular make / make instal framework !
 - [ ] man-page
+- [ ] limit results to one type of object (ex: acl)
+- [ ] display the content of the line next to the line number
 
 ## Contacts : ##
 observations, suggestions, additions : lint_conf@rezopole.net
