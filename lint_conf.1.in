@@ -1,0 +1,61 @@
+.\" {
+.\"
+.\"
+.\" }
+.TH "lint_conf-@LINT_CONF_VERSION@" "1" "2020" "jd" "lint_conf utility"
+.SH NAME
+lint_conf \- a straitghforward simple router or switch a-la-ios configuration-checker.
+.br
+.SH SYNOPSIS
+.B lint_conf
+.RI [ ... " conf_file " ... ]"
+
+for each
+.I filename
+given by parameters, or from
+.I stdin
+otherwise,
+.B lint_conf dig out undeclared objects that are still in use in a given configuration
+
+yet, it mainly reports about :
+
+.B missing declaration
+for objects such as :
+.IP \[bu] 2
+port-channel
+.IP \[bu] 2
+peer-group
+.IP \[bu] 2
+route-map
+.IP \[bu] 2
+ipv4 or ipv6 prefix-list
+.IP \[bu] 2
+access-list
+.IP \[bu] 2
+community-list
+
+.B unused
+objects such as :
+.IP \[bu] 2
+vrf
+.IP \[bu] 2
+interface
+.IP \[bu] 2
+peer-group
+.IP \[bu] 2
+route-map
+.IP \[bu] 2
+ipv4 or ipv6 prefix-list
+.IP \[bu] 2
+access-list
+.IP \[bu] 2
+community-list
+.SH BUGS
+There may have some, please submit them to
+.B sysadm@rezopole.net
+.SH AUTHOR
+Jean-Daniel Pauget (jdpauget@rezopole.net) et Al.
+.SH MANPAGE VERSION
+@LINT_CONF_VERSION@
+
+
