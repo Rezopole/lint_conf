@@ -11,7 +11,7 @@ Homepage: https://github.com/Rezopole/lint_conf
 Package: lint-conf
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: straitghforward simple router or switch a-la-ios configuration-checker.
+Description: straitghforward a-la-ios switch/router configuration-checker.
  lint-conf parses a-la-ios configuration files.
-  it reports for undeclared or unused identifiers such as access-lists, route-maps,
-  prefix-lists etc ..
+  it reports for undeclared or unused identifiers such as access-lists,
+  route-maps, prefix-lists etc ..
